@@ -29,7 +29,7 @@ CREATE TABLE `users` (
   `password` binary(64) DEFAULT NULL COMMENT 'Bcrypt hash',
   `avatar` varchar(500) CHARACTER SET armscii8 COLLATE armscii8_bin DEFAULT NULL COMMENT 'Path to image',
   PRIMARY KEY (`id`),
-  KEY `username` (`name`) USING BTREE
+  FULLTEXT KEY `idx_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
