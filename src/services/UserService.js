@@ -1,6 +1,4 @@
-const fs = require("fs");
 const bcrypt = require("bcrypt");
-const util = require("util");
 
 const sharedDatabase = require("../services/DatabaseService");
 require("dotenv").config();

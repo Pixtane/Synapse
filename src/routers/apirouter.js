@@ -2,7 +2,11 @@ const controller = require("../controllers/UserController");
 
 const Router = require("express").Router;
 
+const POSTRouter = require("./postrouter");
+
 const router = new Router();
+
+router.use("/api/post", POSTRouter);
 
 function statusData(res, responseData) {
   res.status(responseData.status || 400).send({
