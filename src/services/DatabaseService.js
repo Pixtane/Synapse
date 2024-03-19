@@ -28,20 +28,13 @@ class Database {
     }
   }
 
-  async query(sql) {
+  async query(sql, parameters = []) {
     const connection = await this.connect();
 
     try {
       console.log("Executing query:", sql);
-      const data = await connection.execute(sql);
-
-      if (Array.isArray(data)) {
-        const [results] = data; // Destructure only if it's an array
-        return results;
-      } else {
-        const results = data; // Assign the entire object otherwise
-        return results;
-      }
+      const data = await connection.execute(sql, parameters);
+      return data;
     } catch (err) {
       console.error("Error executing query:", err);
       throw err;
@@ -61,7 +54,7 @@ class Database {
     }
   }
 
-  insert(table, data) {
+  insert(table, data, paramaters = []) {
     const columns = Object.keys(data).join(", ");
     const values = Object.values(data)
       .map((value) => (typeof value === "string" ? `'${value}'` : value))
@@ -69,17 +62,34 @@ class Database {
 
     const sql = `INSERT INTO ${table} (${columns}) VALUES (${values})`;
 
-    return this.query(sql);
+    return this.query(sql, paramaters);
   }
 
-  select(table, columns = "*", condition = "") {
+  select(table, columns = "*", condition = "", paramaters = []) {
     const sql = `SELECT ${columns} FROM ${table} ${condition}`;
-    return this.query(sql);
+    return this.query(sql, paramaters);
   }
 
-  delete(table, condition = "") {
-    const sql = `DELETE FROM ${table} ${condition}`;
-    return this.query(sql);
+  delete(table, condition = "", paramaters = []) {
+    const sql = `DELETE FROM ${table} WHERE ${condition}`;
+    return this.query(sql, paramaters);
+  }
+
+  update(table, UnfilteredData, condition = "", paramaters = []) {
+    const data = Object.fromEntries(
+      Object.entries(UnfilteredData).filter(
+        ([key, value]) => value !== undefined
+      )
+    );
+
+    const columns = Object.keys(data)
+      .map((key) => `${key} = '${data[key]}'`)
+      .join(", ");
+
+    const sql = `UPDATE ${table} SET ${columns} ${
+      condition !== "" ? "WHERE" : ""
+    } ${condition}`;
+    return this.query(sql, paramaters);
   }
 
   async closePool() {

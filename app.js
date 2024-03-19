@@ -4,6 +4,8 @@ const mariadb = require("mariadb");
 const cors = require("cors");
 require("dotenv").config();
 
+const sessionMiddleware = require("./src/middlewares/sessionMiddleware");
+
 const app = express();
 const app_port = process.env.PORT || 3000;
 
@@ -18,6 +20,7 @@ const connectionLimit = 15; // Adjust as needed
 const APIRouter = require("./src/routers/apirouter.js");
 
 app.use(bodyParser.json());
+app.use(sessionMiddleware);
 
 app.use(
   cors({
