@@ -13,7 +13,12 @@ class PostController {
       data.title,
       data.body
     );
-    return responseData;
+
+    if (responseData) {
+      return { status: 201, message: "Post created successfully" };
+    } else {
+      return { status: 200, message: "Success" };
+    }
   }
 }
 
