@@ -14,6 +14,26 @@ class Database {
     this.setupReconnection();
   }
 
+  escapeSpecialCharacters(text) {
+    const escapeMap = {
+      "\0": "\\0",
+      "'": "\\'",
+      '"': '\\"',
+      "\b": "\\b",
+      "\n": "\\n",
+      "\r": "\\r",
+      "\t": "\\t",
+      "\u001A": "\\Z",
+      "\\": "\\\\",
+      "%": "\\%",
+      _: "\\_",
+    };
+
+    return text.replace(/[\0\'\"\b\n\r\t\u001A\\%_]/g, function (match) {
+      return escapeMap[match];
+    });
+  }
+
   async connect() {
     try {
       if (this.pool === null) {

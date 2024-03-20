@@ -6,8 +6,8 @@ class PostService {
     try {
       const data = {
         user_id: user_id,
-        title: title,
-        body: content,
+        title: sharedDatabase.escapeSpecialCharacters(title),
+        body: sharedDatabase.escapeSpecialCharacters(content),
       };
 
       return sharedDatabase

@@ -6,7 +6,7 @@ const POSTRouter = require("./postrouter");
 
 const router = new Router();
 
-router.use("/api/post", POSTRouter);
+router.use("/post", POSTRouter);
 
 function statusData(res, responseData) {
   res.status(responseData.status || 400).send({

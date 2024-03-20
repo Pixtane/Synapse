@@ -232,7 +232,7 @@ class UserService {
         return validationResult;
       }
 
-      let user = await this.selectUserFromDB(null, email);
+      let [user] = await this.selectUserFromDB(null, email);
       if (!user) {
         return { status: 404, message: "user not found" };
       }
@@ -256,7 +256,7 @@ class UserService {
       const data = {
         name: name,
         email: email,
-        avatar: avatar,
+        avatar: sharedDatabase.escapeSpecialCharacters(avatar),
         password: password,
       };
 
