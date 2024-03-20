@@ -40,7 +40,7 @@ class Database {
         this.pool = mariadb.createPool(this.config);
       }
       const connection = await this.pool.getConnection();
-      console.log("Successful connection to the database");
+      //console.log("Successful connection to the database");
       return connection;
     } catch (err) {
       console.error("Error connecting to the database:", err);

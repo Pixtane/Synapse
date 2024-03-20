@@ -3,10 +3,12 @@ const controller = require("../controllers/UserController");
 const Router = require("express").Router;
 
 const POSTRouter = require("./postrouter");
+const CommentRouter = require("./commentrouter");
 
 const router = new Router();
 
 router.use("/post", POSTRouter);
+router.use("/comment", CommentRouter);
 
 function statusData(res, responseData) {
   res.status(responseData.status || 400).send({
@@ -16,6 +18,7 @@ function statusData(res, responseData) {
 }
 
 router.get("/data", async (req, res) => {
+  // Get data for your own account
   const userId = req.session.userId;
   if (!userId) {
     res.status(401).send({ status: 401, message: "Unauthorized" });
@@ -28,6 +31,28 @@ router.get("/data", async (req, res) => {
 router.post("/test", (req, res) => {
   console.log("testing...");
   controller.test(req, res);
+});
+
+router.get("/user/:userid", async (req, res) => {
+  // Get data for any account
+  const userId = Number(req.params.userid);
+  if (typeof userId !== "number") {
+    res.status(400).send({ status: 400, message: "Bad request" });
+    return;
+  }
+  let [data] = await controller.getData(userId);
+  if (!data || data.length === 0 || !data.name) {
+    res.status(404).send({ status: 404, message: "User not found" });
+    return;
+  }
+  let filteredData = {
+    // filter out password
+    id: data.id,
+    username: data.name,
+    email: req.session.userId ? data.email : undefined, // hide email if not logged in
+    avatar: data.avatar,
+  };
+  res.status(200).send({ status: 200, data: filteredData });
 });
 
 router.post("/search-users", async (req, res) => {

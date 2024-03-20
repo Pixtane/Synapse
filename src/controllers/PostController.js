@@ -2,9 +2,16 @@ const userService = require("../services/UserService.js");
 const postService = require("../services/PostService.js");
 
 class PostController {
+  async getData(postId) {
+    return await postService.getData(postId);
+  }
+
+  async deletePost(postId) {
+    return await postService.deletePost(postId);
+  }
+
   async createPost(req, res, userId) {
     const data = req.body;
-    console.log("controller login data", data);
     if (!data || !data.title) {
       return res.status(400).send({ status: 400, message: "Bad request" });
     }
@@ -17,7 +24,7 @@ class PostController {
     if (responseData) {
       return { status: 201, message: "Post created successfully" };
     } else {
-      return { status: 200, message: "Success" };
+      return { status: 204, message: "Success" };
     }
   }
 }
