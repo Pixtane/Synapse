@@ -178,7 +178,7 @@ class UserService {
 
     try {
       // Check for existing username
-      const existingUsername = await this.selectUserFromDB(username, null);
+      const [existingUsername] = await this.selectUserFromDB(username, null);
       if (!this.no(existingUsername)) {
         return {
           status: 400,
@@ -187,7 +187,7 @@ class UserService {
       }
 
       // Check for existing email
-      const existingEmail = await this.selectUserFromDB(null, email);
+      const [existingEmail] = await this.selectUserFromDB(null, email);
       if (existingEmail) {
         return {
           status: 400,

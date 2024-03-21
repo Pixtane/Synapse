@@ -66,15 +66,17 @@ If done successfully it would return **status 200** with message `{ message: "Up
 ### POST: **/register**
 Registers the user and creates a session. If error happened in creating a session it would throw [Internal server error](###internal-server-error) (`Couldn't create session`).
 
-Body of request must be `{ "email" : "example@email.com", "username" : "Example123", "password" : "Password123" }`. Without all of them, it would thow [Bad request](###Bad-Request). 
+Body of request must be `{ "email" : "example@email.com", "username" : "Example123", "password" : "Password123" }`. Without all of them, it would throw [Bad request](###Bad-Request). 
 
 If username or email already exists it would throw [bad request. X already exists](###Bad-Request). If one of fields is invalid, it would throw [bad request: invalid X](###Bad-Request) (Or [Internal server error](###internal-server-error)).
 
 On Success it would return status [success](###success/message).
 
 ### POST: **/login**
-Creates a session for you. On invalid credentials it would thow same errors as in register. If user doesn't exist it would throw [User not found](###X-not-found). On invalid password it would return status 401 - Invalid credentials.
+Creates a session for you. On invalid credentials it would throw same errors as in register. If user doesn't exist it would throw [User not found](###X-not-found). On invalid password it would return status 401 - Invalid credentials.
 On success it would return standart [Success](###success/message).
+
+Body of request must be `{ "email" : "example@email.com", "password" : "Password123" }`. Without all of them, it would throw [Bad request](###Bad-Request). 
 
 ## Post route
 

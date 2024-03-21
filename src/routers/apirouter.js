@@ -122,6 +122,10 @@ router.post("/register", async (req, res) => {
   if (!responseData) {
     return;
   }
+  if (responseData.status && responseData.status.toString().charAt(0) !== 2) {
+    statusData(res, responseData);
+    return;
+  }
   if (!responseData.session) {
     console.error("Error creating session:", responseData);
     res.status(500).send({
