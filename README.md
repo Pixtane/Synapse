@@ -4,7 +4,7 @@ Synapse is a small social media written on node.js
 
 ## Installing
 
-To run the app on your machine, install all dependencies with `npm i`.
+To run the app on your machine, install node/npm, install all dependencies with `npm i`.
 Then make a file .env, in which you should fill this information (values are examples):
 
 ``` .env
@@ -22,6 +22,16 @@ DB_NAME=synapse
 ```
 
 Before running you should also install MySQL and mariadb, and create a new database (which information you fill in dotenv file). Example sql file is in `/synapsedb.sql`
+
+Steps (for Windows 10):
+
+1. Setup mariadb and MySQL.
+2. In MySQL cmd client run following:
+3. `CREATE DATABASE synapse;`
+4. `SOURCE C:/path/to/file/synapsedb.sql;`
+5. In another terminal go to project location.
+6. Run `npm run start`.
+7. Enjoy
 
 # API
 
