@@ -26,7 +26,7 @@ router.get("/data", async (req, res) => {
     res.status(401).send({ status: 401, message: "Unauthorized" });
     return;
   }
-  let data = await controller.getData(userId);
+  let [data] = await controller.getData(userId);
   res.status(200).send({ status: 200, data: data });
 });
 
@@ -59,6 +59,11 @@ router.get("/user/:userid", async (req, res) => {
 
 router.post("/search-users", async (req, res) => {
   let query = req.body.query;
+
+  if (!query) {
+    res.status(400).send({ status: 400, message: "Bad request" });
+    return;
+  }
 
   let data = await controller.searchUsers(query);
   res.status(200).send({ status: 200, data: data });

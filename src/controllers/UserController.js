@@ -50,6 +50,10 @@ class UserController {
       response.message += "password ";
     }
 
+    if (avatar) {
+      response.message += "avatar ";
+    }
+
     await service.updateUser(name, email, avatar, hashPassword, userId);
 
     response.message += "successfully!";

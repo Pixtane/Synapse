@@ -234,7 +234,7 @@ class UserService {
 
       let [user] = await this.selectUserFromDB(null, email);
       if (!user) {
-        return { status: 404, message: "user not found" };
+        return { status: 404, message: "User not found" };
       }
 
       const passwordHashBuffer = Buffer.from(user.password, "binary");
@@ -242,12 +242,12 @@ class UserService {
 
       const match = await bcrypt.compare(password, passwordHashString);
       if (!match) {
-        return { status: 401, message: "invalid credentials" };
+        return { status: 401, message: "Invalid credentials" };
       }
-      return { status: 200, message: "success", session: user.id };
+      return { status: 200, message: "Success", session: user.id };
     } catch (error) {
       console.error(error);
-      return { status: 500, message: "internal error" };
+      return { status: 500, message: "Internal error" };
     }
   }
 

@@ -49,7 +49,7 @@ router.delete("/delete/:postid", async (req, res) => {
 
   let [like] = await likeController.getLikeOnPost(postId, userId);
   if (!like) {
-    res.status(404).send({ status: 404, message: "like not found" });
+    res.status(404).send({ status: 404, message: "Like not found" });
     return;
   }
   if (like.user_id !== userId) {
