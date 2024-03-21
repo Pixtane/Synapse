@@ -2,13 +2,15 @@ const controller = require("../controllers/UserController");
 
 const Router = require("express").Router;
 
-const POSTRouter = require("./postrouter");
+const PostRouter = require("./postrouter");
 const CommentRouter = require("./commentrouter");
+const LikeRouter = require("./likerouter");
 
 const router = new Router();
 
-router.use("/post", POSTRouter);
+router.use("/post", PostRouter);
 router.use("/comment", CommentRouter);
+router.use("/like", LikeRouter);
 
 function statusData(res, responseData) {
   res.status(responseData.status || 400).send({
