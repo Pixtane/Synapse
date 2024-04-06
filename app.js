@@ -24,9 +24,10 @@ app.use(sessionMiddleware);
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:5173"],
     credentials: true,
     optionSuccessStatus: 200,
+    exposedHeaders: "Set-Cookie, Access-Control-Allow-Credentials",
   })
 );
 
